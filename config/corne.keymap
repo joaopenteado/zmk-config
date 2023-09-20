@@ -44,12 +44,12 @@
                 //         bindings = <&kp>, <&kp>;
                 // };
 
-                sktd: sticky_tap_dance {
+                sk_shft_td: sticky_shift_tap_dance {
                         compatible = "zmk,behavior-tap-dance";
-                        label = "SHIFT_TAP_DANCE";
+                        label = "SHIFT_SHIFT_TAP_DANCE";
                         #binding-cells = <0>;
                         tapping-term-ms = <200>;
-                        bindings = <&sk>, <&kp>;
+                        bindings = <&sk LSHFT>, <&kp CAPS>;
                 };
         };
 
@@ -65,7 +65,7 @@
    &none &ht LG(Q) Q &ht LG(W) W &ht LG(F) F &ht LG(P) P &ht LG(B) B       &ht RG(J) J &ht RG(L) L &ht RG(  U  )   U   &ht RG( Y )  Y  &ht RG(SEMI) SEMI &none
    &none &ht LG(A) A &ht LG(R) R &ht LG(S) S &ht LG(T) T &ht LG(G) G       &ht RG(M) M &ht RG(N) N &ht RG(  E  )   E   &ht RG( I )  I  &ht RG(  O )  O   &none
    &none &ht LG(Z) Z &ht LG(X) X &ht LG(C) C &ht LG(D) D &ht LG(V) V       &ht RG(K) K &ht RG(H) H &ht RG(COMMA) COMMA &ht RG(DOT) DOT &ht RG(FSLH) FSLH &none
-                 &sktd LSHFT CAPS &lt LOWER ESC  &ht LG(SPACE) SPACE       &mt RALT RET &lt RAISE BSPC &kp RCTRL
+                      &sk_shft_td &lt LOWER ESC  &ht LG(SPACE) SPACE       &mt RALT RET &lt RAISE BSPC &kp RCTRL
                         >;
                 };
 
