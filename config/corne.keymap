@@ -25,55 +25,77 @@
          };
 
         behaviors {
-                ht: hold_tap {
+                hml: homerow_mods_left {
                         compatible = "zmk,behavior-hold-tap";
-                        label = "HOLD_TAP";
+                        label = "HOMEROW_MODS_LEFT";
                         #binding-cells = <2>;
                         bindings = <&kp>, <&kp>;
                         flavor = "tap-preferred";
                         tapping-term-ms = <200>;
                         quick-tap-ms = <125>;
-                        global-quick-tap;
-                };
+                        // global-quick-tap;
+                        // If set, pressing the hold-tap and then any key position NOT in the list triggers a tap.
+                        // In other words, only valid for key positions below
+                        hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 41>;
+                }
 
-                // td: tap_dance {
-                //         compatible = "zmk,behavior-tap-dance";
-                //         label = "TAP_DANCE";
+                hmr: homerow_mods_right {
+                        compatible = "zmk,behavior-hold-tap";
+                        label = "HOMEROW_MODS_RIGHT";
+                        #binding-cells = <2>;
+                        bindings = <&kp>, <&kp>;
+                        flavor = "tap-preferred";
+                        tapping-term-ms = <200>
+                        quick-tap-ms = <125>;
+                        // global-quick-tap;
+                        // If set, pressing the hold-tap and then any key position NOT in the list triggers a tap.
+                        // In other words, only valid for key positions below
+                        hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38>;
+                }
+
+                http: hold_tap_tap_preferred {
+                        compatible = "zmk,behavior-hold-tap";
+                        label = "HOLD_TAP_TAP_PREFERRED";
+                        #binding-cells = <2>;
+                        bindings = <&kp>, <&kp>;
+                        flavor = "tap-preferred";
+                        tapping-term-ms = <200>
+                        quick-tap-ms = <125>;
+                }
+
+                // ht: hold_tap {
+                //         compatible = "zmk,behavior-hold-tap";
+                //         label = "HOLD_TAP";
                 //         #binding-cells = <2>;
-                //         tapping-term-ms = <200>;
                 //         bindings = <&kp>, <&kp>;
+                //         flavor = "tap-preferred";
+                //         tapping-term-ms = <200>;
+                //         quick-tap-ms = <125>;
+                //         global-quick-tap;
                 // };
 
-                sk_shft_td: sticky_shift_tap_dance {
-                        compatible = "zmk,behavior-tap-dance";
-                        label = "SHIFT_SHIFT_TAP_DANCE";
-                        #binding-cells = <0>;
-                        tapping-term-ms = <200>;
-                        bindings = <&sk LSHFT>, <&kp CAPS>;
-                };
+                // sk_shft_td: sticky_shift_tap_dance {
+                //         compatible = "zmk,behavior-tap-dance";
+                //         label = "SHIFT_SHIFT_TAP_DANCE";
+                //         #binding-cells = <0>;
+                //         tapping-term-ms = <200>;
+                //         bindings = <&sk LSHFT>, <&kp CAPS>;
+                // };
         };
 
         keymap {
                 compatible = "zmk,keymap";
 
                 default {
-//      |  Q  |  W  |  F  |  P  |  B  |      |  J  |  L  |  U  |  Y  |  ;  |
-//      |  A  |  R  |  S  |  T  |  G  |      |  M  |  N  |  E  |  I  |  O  |
-//      |  Z  |  X  |  C  |  D  |  V  |      |  K  |  H  |  ,  |  .  |  /  |
-//                  | GUI | LWR | SPC |      | ENT | RSE  | ALT |
                         bindings = <
-   &none &ht LG(Q) Q &ht LG(W) W &ht LG(F) F &ht LG(P) P &ht LG(B) B       &ht RG(J) J &ht RG(L) L &ht RG(  U  )   U   &ht RG( Y )  Y  &ht RG(SEMI) SEMI &none
-   &none &ht LG(A) A &ht LG(R) R &ht LG(S) S &ht LG(T) T &ht LG(G) G       &ht RG(M) M &ht RG(N) N &ht RG(  E  )   E   &ht RG( I )  I  &ht RG(  O )  O   &none
-   &none &ht LG(Z) Z &ht LG(X) X &ht LG(C) C &ht LG(D) D &ht LG(V) V       &ht RG(K) K &ht RG(H) H &ht RG(COMMA) COMMA &ht RG(DOT) DOT &ht RG(FSLH) FSLH &none
-                      &sk_shft_td &lt LOWER ESC  &ht LG(SPACE) SPACE       &mt RALT RET &lt RAISE BSPC &kp RCTRL
+                &none &kp     V    &kp    M    &kp    L    &kp     C    &kp     P               &kp      X     &kp         F       &kp        O      &kp    U    &kp     J    &none
+                &none &hml LCTRL S &hml LALT T &hml LGUI R &hml LSHFT D &kp     Y               &kp     DOT    &hmr     RSHFT N    &hmr     RGUI A   &hmr RALT E &hmr RCTRL I &none
+                &none &kp     Z    &kp    K    &kp    Q    &kp     G    &kp     W               &kp      B     &kp         H       &kp       SQT     &kp   SEMI  &kp   COMMA  &none
+                                               &kp   TAB   &kp   SPACE  &mt LOWER ESC           &mt RAISE CAPS &http RA(BSPC) BSPC &http RA(DEL) DEL
                         >;
                 };
 
                 lower {
-//      |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |
-//      | BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |
-//      |     |     |     |     |     |   |     |     |     |     |     |
-//                  | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
    &none &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &none
    &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &none
@@ -83,10 +105,6 @@
                 };
 
                 raise {
-// |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  |
-// |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |
-// |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |
-//             | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
    &none &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR &kp RPAR &none
    &none &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT        &kp RBKT &kp BSLH &none
@@ -96,10 +114,6 @@
                 };
 
                 adjust {
-//      |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |
-//      | BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |
-//      |     |     |     |     |     |   |     |     |     |     |     |
-//                  | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
    &none &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &none
    &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &none
